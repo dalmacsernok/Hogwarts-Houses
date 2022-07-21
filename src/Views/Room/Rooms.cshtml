@@ -1,0 +1,38 @@
+﻿@using HogwartsHouses.Models
+@{
+	var rooms = (HashSet<Room>) ViewData["room"];
+}
+<head>
+<link href="css/site.css" rel="stylesheet"/>
+</head>
+<body>
+<div>
+	<ul>
+		@foreach (var room in rooms)
+		{
+			<li>Room number: @room.Id</li>
+			@if (@room.NeedRenovation)
+			{
+				<p>This room needs renovation. Please kindly ask Dobby to help you out!</p>
+			}
+			@if (@room.isAvailable)
+			{
+				<p>The room is available.</p>
+			}
+			else
+			{
+				<p>Sorry, he room is currently unavailable. But you can sleep at the corridors, if you like :)</p>
+			}
+			@if (room.GetStudentsInRoom().Count > 0)
+			{
+				<ul>
+				@foreach (var student in room.GetStudentsInRoom())
+				{
+					<li>@student.Name</li>
+				}
+				</ul>
+			}
+		}
+	</ul>
+</div>
+</body>
